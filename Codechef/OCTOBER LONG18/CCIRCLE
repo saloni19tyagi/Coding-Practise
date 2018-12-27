@@ -1,0 +1,77 @@
+//AUTHOR : SALONI TYAGI
+
+#include <iostream>
+#include<math.h>
+using namespace std;
+
+int main() {
+
+	ios_base :: sync_with_stdio(false) ;
+	cin.tie(nullptr) ;
+	int n , q ;
+	cin >> n >> q ;
+	double a[n] , b[n] , c[n]  , count = 0 , mn = 0 , mx = 0 ,x1 , x2 , r1 , y1 ,y2 , r2, dis = 0,index[1000002] = {0} , pre_sum[1000002] ={0} ;
+	long long int min1 = 0 , max1 = 0 , k ;
+	
+	for(int i = 0 ; i < n ; i++)
+	  cin >> a[i] >> b[i] >> c[i] ;
+	  
+	for(int i = 0 ; i < n ; i++) {
+			x1 = a[i] ;
+			y1 = b[i] ;
+			r1 = c[i] ;
+			
+			for(int j = i+1 ; j < n ; j++) {
+				x2 = a[j] ;
+				y2 = b[j] ;
+				r2 = c[j] ;
+				
+				dis = sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) ;
+				
+				mx = dis + r1 + r2 ;
+				max1 = mx ;
+				
+				if(dis >= r1+r2) {
+					mn = dis - r1 - r2 ;
+					min1 = mn ;
+					if(min1 != mn) 
+					 min1++ ;
+				}
+				
+				else if(dis < abs(r1-r2)){
+				    mn = abs(r1-r2)-dis ;
+				    min1 = mn ;
+					if(min1 != mn) 
+					 min1++ ;
+				}
+				
+				else {
+				    mn = 0 ;
+				    min1 = mn ;
+					if(min1 != mn) 
+					 min1++ ;
+				}
+				  
+				if(min1 <= 1000000) {
+					index[min1]++ ;
+				}
+				if(max1 <= 1000000) {
+					index[max1+1]--;
+				}
+				
+			}
+     	}
+     
+     pre_sum[0] = index[0] ;
+     
+    for(int i = 1 ; i <= 1000000 ; i++) {
+    	pre_sum[i]+=(pre_sum[i-1]+index[i]) ;	
+    }
+     
+     while(q--) {
+     	cin >> k ;
+     	cout << pre_sum[k] << "\n" ;
+     }
+	
+	return 0;
+}
