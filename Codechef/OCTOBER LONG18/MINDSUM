@@ -1,0 +1,63 @@
+//AUTHOR : SALONI TYAGI
+
+#include<bits/stdc++.h>
+#define f first
+#define s second
+using namespace std;
+
+long long int digit_sum(long long int num) {
+	long long int sum = 0 ;
+	while(num != 0) {
+		sum+=num%10 ;
+		num = num/10 ;
+	}
+	
+	return sum ;
+}
+
+int main() {
+
+	int t ;
+	cin >> t ;
+	
+	while(t--) {
+		long long int n , m , k = 0  , sum = 0 , x = 0 , value = 0 , p = 0, operations = 0 ;
+		cin >> n >> m ;
+		
+		vector<pair<long long int , long long int> >num ;
+		long long int ans[15] ;
+		
+		for(int i = 1 ; i <= 15 ;i++)
+		  ans[i] = LLONG_MAX ;
+ 		
+		num.push_back(make_pair(n , 0)) ;
+		if(n < 10)
+		  ans[n] = 0 ;
+		k = 0  ;
+
+		for(int i = 0 ; i <= 10000 ; i++) {
+			  x = num[k].f ;
+			  num.push_back(make_pair(x+m , num[k].s + 1)) ;
+			  sum = digit_sum(x) ;
+			  if(sum < 10) {
+			  	 ans[sum] = min(ans[sum] , num[k].s + 1) ;
+			  }
+			  else
+			   num.push_back(make_pair(sum , num[k].s+1)) ;
+			 k++ ;
+		}
+		
+		for(int i = 1 ; i <= 10 ; i++) {
+			if(ans[i] != LLONG_MAX) {
+				value = i ;
+				operations = ans[i] ;
+				break ;
+			}
+		}
+		
+		cout << value << " " << operations << "\n" ;
+			
+	}
+		
+	return 0;
+}
