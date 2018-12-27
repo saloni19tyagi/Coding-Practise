@@ -1,0 +1,80 @@
+//AUTHOR : SALONI TYAGI
+
+
+#include<iostream>
+
+using namespace std ;
+
+int main() {
+    int n , c ;
+    cin >> n >> c ;
+    c = 1 ;
+    int i = 1 , res = 0 , ans = 0 ; 
+    if(n > 1000) {
+    	
+    	for(i = 1 ; i <= n ; i+=500) {
+    		cout << "1 " << i << "\n" ;
+    		cin >> res ;
+    		
+    		if(res == 1) {
+    			ans = i ;
+    			cout << "2\n" ;
+    			break ;
+    		}
+    	}
+    	
+    	int  x = i - 500  ;
+    	for(; x > 0 && x <= i && x <= n ; x+=2) {
+    		cout << "1 " << x << "\n" ;
+    		cin >> res ;
+    		
+    		if(res == 1) {
+    			ans = x ;
+    			cout << "2\n" ;
+    			break ;
+    		}
+    	}
+    	
+    	if(x-1 >= 1) {
+    	cout << "1 " << x-1 << "\n" ;
+		cin >> res ;
+		if(res == 1) {
+			ans = x-1 ;
+			cout << "2\n" ;
+		}
+    	}
+	
+    
+    	cout << "3 " << ans << "\n" ;
+    	
+    }
+    
+    else {
+    	
+    	while(i <= n) {
+		cout << "1 " << i << "\n" ;
+        cin >> res ;
+            
+        if(res == 1) {
+          cout << "2\n" ;
+          break ;
+        }
+        i+=2 ;
+	}
+
+	if(i-1>=1){
+
+	cout << "1 " << i-1 << "\n" ;
+	cin >> res ;
+	if(res == 1) {
+	   i = i-1 ;
+	   cout << "2\n" ;
+	}
+	
+	}
+
+	cout << "3 " << i << "\n" ;
+    }
+
+	
+}
