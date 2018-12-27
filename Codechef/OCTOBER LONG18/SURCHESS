@@ -1,0 +1,129 @@
+//AUTHOR : SALONI TYAGI
+
+#include<iostream>
+#include<string.h>
+#include<climits>
+#define ll long long int
+
+using namespace std ;
+ll ans[202] ;
+
+void fill_row(ll n ,ll m , ll chess[200][200]) {
+ for(int i = 1 ; i < m ; i++) {
+         if(chess[0][i-1] == 0)
+             chess[0][i] = 1 ;
+         else
+             chess[0][i] = 0 ;
+     }	
+}
+
+void fill(ll n , ll m , ll chess[200][200]) {
+	for(int i = 1 ; i < n ; i++) {
+        for(int j = 0 ; j < m ; j++) {
+            if(chess[i-1][j] == 0)
+                chess[i][j] = 1 ;
+            else
+                chess[i][j] = 0 ;
+
+            if(chess[i-1][j] == 0)
+                chess[i][j] = 1 ;
+            else
+                chess[i][j] = 0 ;
+        }
+    }
+}
+
+void calculate(ll n , ll m ,ll d[200][200]) {
+    
+    for(ll k = 1 ; k <= min(n , m) ; k++) {
+        ll pre_sum[203][203] ,  sum = 0 ;
+      
+    	 for(int j = 0 ; j < m ; j++) {
+    		sum = 0 ;
+    		for(int i = 0 ; i < k ; i++) {
+    		    sum+=d[i][j] ;
+    		}
+    		pre_sum[0][j] = sum ;
+
+    	    for(int i = 1 ; i < n-k+1 ; i++) {
+    	    	sum+=(d[i+k-1][j] - d[i-1][j]) ;
+    	        pre_sum[i][j] = sum ;
+    	    }
+    	   }
+
+    	for(int i = 0 ; i < n-k+1 ; i++) {
+    		sum = 0 ;
+    		for(int j = 0 ; j < k ; j++)
+    		  sum+=pre_sum[i][j] ;
+            ans[k] = min(sum , ans[k]) ;
+
+    		for(int j = 1 ; j < m-k+1 ; j++) {
+    		  sum+=(pre_sum[i][j+k-1] - pre_sum[i][j-1]) ;
+    		  ans[k] = min(sum , ans[k]) ;
+    		}
+    	}
+        }
+}
+
+int main() {
+
+    ios_base :: sync_with_stdio(false) ;
+    cin.tie(nullptr) ;
+
+    ll n , m ;
+    cin >> n >> m ;
+
+	string chess[n] ;
+    ll qu ,query   , d1[200][200] , d2[200][200] , chess1[200][200]  ,x , chess2[200][200]  ;
+
+   memset(d1 , 0 , sizeof(d1)) ;
+   memset(d2 , 0 , sizeof(d2)) ;
+   
+   for(int i = 0 ; i <= 200 ; i++)
+       ans[i] = INT_MAX ;    
+   
+    for(int i = 0 ; i < n ; i++) {
+            cin >> chess[i] ;
+    }
+    
+    chess1[0][0] = 0 ;
+    chess2[0][0] = 1 ;
+       
+    fill_row(n , m , chess1) ;
+    fill_row(n , m , chess2) ;
+    
+    fill(n , m , chess1) ;
+    fill(n , m , chess2) ;
+    
+    for(int i = 0 ; i < n ; i++) {
+        for(int j = 0 ; j < m ; j++) {
+            if(chess[i][j]-'0' != chess1[i][j]){
+                d1[i][j] = 1 ;
+            }
+
+            if(chess[i][j]-'0' != chess2[i][j]) {
+                d2[i][j] = 1 ;
+            }
+        }
+    }
+    
+
+    calculate( n , m , d1 ) ;
+    calculate( n , m , d2 ) ;
+
+  //  for(int i = 0 ; i <= 8 ; i++)
+    //   cout << ans[i] << " " ;
+    
+    cin >> qu ;
+    while(qu--) {
+        cin >> query ;
+        for(int i = 1 ; i <= min(n , m) ; i++) {
+            if(query >= ans[i]) {
+                x = i ;
+            }
+            else
+             break ;
+        }
+        cout << x << "\n" ;
+    }
+}
