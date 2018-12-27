@@ -1,0 +1,23 @@
+//AUTHOR : SALONI TYAGI
+
+#include <iostream>
+#define ll long long int 
+using namespace std;
+
+int main() {
+
+    int t ;
+    cin >> t ;
+    
+    ll p1 , p2 , k ,x ;
+    while(t--) {
+    	cin >> p1 >> p2 >> k ;
+    	x = (p1+p2)/k ;
+    	x++ ;
+    	if(x%2 == 0)
+    	   cout << "COOK\n" ;
+    	else
+    	  cout << "CHEF\n" ;
+    }
+	return 0;
+}
