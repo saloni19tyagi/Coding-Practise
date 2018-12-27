@@ -1,0 +1,113 @@
+AUTHOR : SALONI TYAGI
+
+
+#include<iostream>
+
+using namespace std ;
+
+int main() {
+
+    int t ;
+    cin >> t ;
+
+    while(t--) {
+        int n , m , a , b , c , d ,e ,rem , quot, k, f , g  ;
+        cin >> n ;
+        int ans[n+1] ;
+
+        rem = n%4 ;
+        quot = n/4 ;
+        if(rem != 0)
+            quot-- ;
+        k = quot*4 + 1 ;
+        
+        
+        for(int i = 1 ; i <= quot*4 ; i+=4) {
+            cout << "1 " << i << " " << i+1 << " " <<  i+2 << "\n" ;
+            cin >> a ;
+            cout << "1 " << i << " " << i+1 << " " << i+3 << "\n" ;
+            cin >> b ;
+            cout << "1 " << i << " " << i+2 << " " << i+3 << "\n" ;
+            cin >> c ;
+            cout << "1 " << i+1 << " " << i+2 << " " << i+3 << "\n" ;
+            cin >> d ;
+
+            ans[i] = ((a^b)^c) ;
+            ans[i+1] = ((a^b)^d) ;
+            ans[i+2] = ((a^c)^d) ;
+            ans[i+3] = ((b^c)^d) ;
+        }
+
+        if(rem == 1) {
+            cout << "1 " << k << " " << k+1 << " " << k+2 << "\n" ;
+            cin >> a ;
+            cout << "1 " << k+1 << " " << k+2 << " " << k+3 << "\n" ;
+            cin >> b ;
+            cout << "1 " << k+2 << " " << k+3 << " " << k+4 << "\n" ;
+            cin >> c ;
+            cout << "1 " << k << " " << k+4 << " " << k+3 << "\n" ;
+            cin >> d ;
+            cout << "1 " << k << " " << k+1 << " " << k+4 << "\n" ;
+            cin >> e ;
+
+            ans[k+2] = ((b^d)^e) ;
+            ans[k+4] = ((a^b)^d) ;
+            ans[k+3] = ((c^ans[k+2])^ans[k+4]) ;
+            ans[k] = ((d^ans[k+4])^ans[k+3]) ;
+            ans[k+1] = ((a^ans[k])^ans[k+2]) ;
+        }
+
+        else if(rem == 2) {
+            cout << "1 " << k << " " << k+1 << " " << k+2 << "\n" ;
+             cin >> a ;
+             cout << "1 " << k << " " << k+3 << " " << k+4 << "\n" ;
+             cin >> b ;
+             cout << "1 " << k << " " << k+4 << " " << k+5 << "\n" ;
+             cin >> c ;
+             cout << "1 " << k+1 << " " << k+3 << " " << k+5 << "\n" ;
+             cin >> d ;
+             cout << "1 " << k+1 << " " << k+2 << " " << k+4 << "\n" ;
+             cin >> e ;
+             cout << "1 " << k+3 << " " << k+5 << " " << k+2 << "\n" ;
+             cin >> f ;
+
+             ans[k+4] = ((d^e)^f) ;
+             ans[k+1] = ((b^c)^d) ;
+             ans[k+2] = ((e^ans[k+1])^ans[k+4]) ;
+             ans[k] = ((a^ans[k+1])^ans[k+2]) ;
+             ans[k+3] = ((b^ans[k])^ans[k+4]) ;
+             ans[k+5] = ((c^ans[k])^ans[k+4]) ;
+        }
+
+        else if(rem == 3) {
+            cout << "1 " << k << " " << k+1 << " " << k+2 << "\n" ;
+             cin >> a ;
+             cout << "1 " << k+1 << " " << k+2 << " " << k+3 << "\n" ;
+             cin >> b ;
+             cout << "1 " << k+3 << " " << k+4 << " " << k+5 << "\n" ;
+             cin >> c ;
+             cout << "1 " << k+4 << " " << k+5 << " " << k+6 << "\n" ;
+             cin >> d ;
+             cout << "1 " << k+2 << " " << k+3 << " " << k+4 << "\n" ;
+             cin >> e ;
+             cout << "1 " << k << " " << k+6 << " " << k+5 << "\n" ;
+             cin >> f ;
+             cout << "1 " << k << " " << k+1 << " " << k+6 << "\n" ;
+             cin >> g ;
+
+             ans[k+4] = ((((a^c)^e)^d)^g) ;
+             ans[k+1] = ((b^e)^ans[k+4]) ;
+             ans[k+5] = ((g^f)^ans[k+1]) ;
+             ans[k+6] = ((ans[k+4]^ans[k+5])^d) ;
+             ans[k+3] = ((c^d)^ans[k+6]) ;
+             ans[k+2] = ((a^g)^ans[k+6]) ;
+             ans[k] = ((a^b)^ans[k+3]) ;
+        }
+
+        cout << "2 " ;
+        for(int i = 1 ; i <= n ; i++)
+            cout << ans[i] << " " ;
+        cout << "\n" ;
+        cin >> m ;
+    }
+}
