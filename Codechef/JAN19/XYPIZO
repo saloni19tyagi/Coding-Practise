@@ -1,0 +1,55 @@
+#include <iostream>
+#define ll long long int
+using namespace std;
+
+ll gcd(ll a, ll b) { 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
+
+
+int main() {
+	
+	int ti ;
+	cin >> ti ;
+	
+	while(ti--){
+		ll N , t , x,  y, z , cal = 0 , n  , m ;
+		cin >> N >> t >> x >> y >> z ;
+		
+		n = 2*N + 1 ;
+		
+		if(t == 3 && x == 0) {
+			m = 1 ;
+			n = 1 ;
+		}
+		
+		else if(t == 1) {
+			if((x < y && y < z) || (x > y && y > z)) 
+				m = 2*N + 1 - z ;
+			else
+			   m = x ;
+		}
+		
+		else if(t == 2) {
+			m = 2*N + 1 - 2*y ;
+		}
+		else if(t == 3) {
+			if((y > x && z > y)|| (x > y && y > z))
+				m = 2*N + 1 - x ;
+			else 
+			   m = x ;
+		}
+		
+		else {
+			m = 2*N + 1 - 2*y ;
+		}
+		
+		cal = gcd(m , n) ;
+		m = m/cal ;
+		n = n/cal ;
+		cout << m << " " << n << "\n" ;
+	}
+	return 0;
+}
